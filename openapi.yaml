@@ -1,0 +1,105 @@
+openapi: 3.0.3
+info:
+  title: Deel - OpenAPI 3.0
+  description: |-
+    This is a backend exercise based on the OpenAPI 3.0 specification.
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  version: 1.0.11
+servers:
+  - url: https://deel.swagger.io/api/v3
+paths:
+  /contracts:
+    get:
+      tags:
+        - contracts
+      summary: List contracts
+      description: List contracts
+      operationId: listContracts
+      responses:
+        '200':
+          description: Successful contract list 
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: string
+                    terms:
+                      type: string
+                    status:
+                      type: string
+                    createdAt:
+                      type: string
+                    updatedAt:
+                      type: string
+                    ContractorId:
+                      type: string
+                    ClientId:
+                      type: string
+              example:
+                - id: 2
+                  terms: bla bla bla
+                  status: in_progress
+                  createdAt: '2023-01-27T20:34:13.198Z'
+                  updatedAt: '2023-01-27T20:34:13.198Z'
+                  ContractorId: 6
+                  ClientId: 1
+        '400':
+          description: Not Found
+        '404':
+          description: Contract not found
+        '405':
+          description: Validation exception
+  /contracts/{id}:
+    get:
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: Contract ID
+          schema:
+            type: string
+      tags:
+        - contracts
+      summary: Get contract by ID
+      description: Get contract by ID
+      operationId: getContract
+      responses:
+        '200':
+          description: Successful contract
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                  terms:
+                    type: string
+                  status:
+                    type: string
+                  createdAt:
+                    type: string
+                  updatedAt:
+                    type: string
+                  ContractorId:
+                    type: string
+                  ClientId:
+                    type: string
+              example:
+                id: 2
+                terms: bla bla bla
+                status: in_progress
+                createdAt: '2023-01-27T20:34:13.198Z'
+                updatedAt: '2023-01-27T20:34:13.198Z'
+                ContractorId: 6
+                ClientId: 1
+        '404':
+          description: Contract not found
+        '405':
+          description: Validation exception
